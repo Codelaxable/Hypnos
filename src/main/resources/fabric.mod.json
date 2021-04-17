@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "hypnos",
+  "version": "0.1.1",
+
+  "name": "Hypnos",
+  "description": "This mod allows you to skip night without having all players sleeping.",
+  "authors": [
+    "Codelax"
+  ],
+  "contact": {
+    "homepage": "https://cod.re/",
+    "issues": "https://todo.sr.ht/~codelax/hypnos",
+    "sources": "https://git.sr.ht/~codelax/hypnos"
+  },
+
+  "license": "ISC",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "re.cod.hypnos.HypnosMod"
+    ]
+  },
+  "mixins": [
+    "hypnos.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {}
+}
