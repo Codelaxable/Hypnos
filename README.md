@@ -36,6 +36,7 @@ You can also use minecraft color tags as seen [here](https://minecraft.gamepedia
   "notEnoughPlayerMessage": "§9{player} entered bed, not enought to skip night [{sleeping}/{required}]§r",
   "nightSkipMessage": "§9Enough players are sleeping, skipping night§r",
   "wakeUpMessage": "§9{player} leaved bed§r",
-  "enableWakeUp": false
+  "enableWakeUp": false,
+  "ignoreSleepDuringDay": true
 }
 ```
