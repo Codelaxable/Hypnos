@@ -11,6 +11,7 @@ Minecraft mod using fabric api
 - `nightSkipMessage` is the message used when skipping night
 - `enableWakeUp` enable or disable broadcasting of `wakeUpMessage`
 - `wakeUpMessage` is the message displayed when a player leaves his bed
+- `ignoreSleepDuringDay` enabling it will ignore when player enter a bed during day (true per default)
 
 ### Message arguments
 
