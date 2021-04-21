@@ -20,6 +20,7 @@ public class Config {
         public String nightSkipMessage = "§9Enough players are sleeping, skipping night§r";
         public String wakeUpMessage = "§9{player} leaved bed§r";
         public boolean enableWakeUp = false;
+        public boolean ignoreSleepDuringDay = true;
 
         public void validate() {
             if (this.playerPercentage < 0 || this.playerPercentage > 100) {
