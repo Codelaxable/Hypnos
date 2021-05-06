@@ -5,11 +5,9 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
+import net.minecraft.text.LiteralText;
 import re.cod.hypnos.cmd.config.ConfigField;
 import re.cod.hypnos.config.Config;
-
-
 import java.util.StringJoiner;
 
 import static net.minecraft.server.command.CommandManager.literal;
@@ -33,17 +31,19 @@ public class ConfigCommand implements Command<ServerCommandSource> {
         joiner.add(String.format("%s = %s", field.name, field.get().toString()));
       } catch (ConfigField.InvalidConfigFieldException e) {
         e.printStackTrace();
-        context.getSource().sendError(Text.of(e.getMessage()));
+        context.getSource().sendError(new LiteralText(e.getMessage()));
         return 0;
       }
     }
-    context.getSource().sendFeedback(Text.of(joiner.toString()), false);
+    context.getSource().sendFeedback(new LiteralText(joiner.toString()), false);
     return SINGLE_SUCCESS;
   }
 
   public static LiteralArgumentBuilder<ServerCommandSource> build(LiteralArgumentBuilder<ServerCommandSource> builder) {
     ConfigField[] configFields = ConfigField.listConfigFields();
-    LiteralArgumentBuilder<ServerCommandSource> configCmd = literal("config").executes(new ConfigCommand(configFields));
+    LiteralArgumentBuilder<ServerCommandSource> configCmd = literal("config")
+        .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
+        .executes(new ConfigCommand(configFields));
     for (ConfigField configField : configFields) {
       configCmd = buildField(configCmd, configField);
     }
@@ -55,10 +55,10 @@ public class ConfigCommand implements Command<ServerCommandSource> {
         .then(literal(field.name).executes(context -> {
           try {
             Object cfgValue = field.get();
-            context.getSource().sendFeedback(Text.of(String.format("%s = %s", field.name, cfgValue.toString())), false);
+            context.getSource().sendFeedback(new LiteralText(String.format("%s = %s", field.name, cfgValue.toString())), false);
           } catch (ConfigField.InvalidConfigFieldException e) {
             e.printStackTrace();
-            context.getSource().sendError(Text.of(e.getMessage()));
+            context.getSource().sendError(new LiteralText(e.getMessage()));
             return 0;
           }
           return SINGLE_SUCCESS;
@@ -68,7 +68,7 @@ public class ConfigCommand implements Command<ServerCommandSource> {
             field.set(arg);
           } catch (ConfigField.InvalidConfigFieldException e) {
             e.printStackTrace();
-            context.getSource().sendError(Text.of(e.getMessage()));
+            context.getSource().sendError(new LiteralText(e.getMessage()));
             return 0;
           }
           return SINGLE_SUCCESS;
