@@ -9,6 +9,7 @@ public class HypnosCommand {
   public static LiteralArgumentBuilder<ServerCommandSource> hypnosCommand() {
     LiteralArgumentBuilder<ServerCommandSource> builder = CommandManager.literal("hypnos");
     builder = ConfigCommand.build(builder);
+    builder = ConfigSaveCommand.build(builder);
     return builder;
   }
 
